@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import searchIcon from '../images/searchIcon.svg';
 import profile from '../images/profileIcon.svg';
-import SearchBar from '../SearchBar';
+import SearchBar from './SearchBar';
 
 export default function Header(props) {
   const { title, sb } = props;
@@ -26,7 +26,7 @@ export default function Header(props) {
           />
         </button>
       )}
-      { searchShow && <SearchBar /> }
+      { searchShow && <SearchBar title={ title } /> }
     </div>
   );
 }
