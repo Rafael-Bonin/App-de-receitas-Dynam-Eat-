@@ -8,8 +8,8 @@ function Login(props) {
   const { history } = props;
 
   useEffect(() => {
-    const six = 6;
-    if (email.includes('@') && email.includes('.com') && password.length > six) {
+    const SIX = 6;
+    if (email.includes('@') && email.includes('.com') && password.length > SIX) {
       setDisabled(false);
     } else {
       setDisabled(true);
