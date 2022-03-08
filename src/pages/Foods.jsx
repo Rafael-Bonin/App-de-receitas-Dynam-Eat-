@@ -22,9 +22,11 @@ function Foods() {
         && recipes.map(
           (recipe, index) => index < TWELVE && (
             <Card
+              route="foods"
               recipe={ {
                 id: index,
                 name: recipe.strMeal,
+                recipeId: recipe.idMeal,
                 image: recipe.strMealThumb,
               } }
               key={ Math.random() }
