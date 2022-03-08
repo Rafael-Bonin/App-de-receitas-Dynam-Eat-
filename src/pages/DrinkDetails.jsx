@@ -1,14 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
+import getIngredients from './getIngredients';
 
 export default function DrinkDetails(props) {
   const { history } = props;
   const [recipe, setRecipe] = useState([]);
   const [recommendeds, setRecommendeds] = useState([]);
+  const [show, setShow] = useState(false);
   const [ingredients, setIngredients] = useState([]);
   const FIVE = 5;
+
+  const id = history.location.pathname.replace(/\D/g, '');
+
+  const inProgressRecipe = () => {
+    const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (inProgress !== null) {
+      return Object.keys(inProgress.cocktails).some(
+        (ids) => ids === recipe.idDrink,
+      );
+    } return false;
+  };
+
   useEffect(() => {
-    const id = history.location.pathname.replace(/\D/g, '');
     fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
       .then((response) => response.json())
       .then((data) => setRecipe(data.drinks[0]));
@@ -20,24 +33,19 @@ export default function DrinkDetails(props) {
     console.log(recipe);
     console.log(recommendeds);
     const TWENTY = 15;
-    if (recipe.length !== 0) {
-      for (let i = 1; i <= TWENTY; i += 1) {
-        const position = `strIngredient${i.toString()}`;
-        if (recipe[position] !== null) {
-          const positionMeasure = `strMeasure${i}`;
-          setIngredients((ingredient) => [
-            ...ingredient,
-            { name: recipe[position], measure: recipe[positionMeasure] },
-          ]);
-        }
-      }
+    const dones = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (dones !== null && recipe.length !== 0) {
+      setShow(
+        dones.some((receita) => receita.id.toString() === recipe.idDrink),
+      );
     }
+    getIngredients(recipe, TWENTY, setIngredients, null);
   }, [recipe]);
   useEffect(() => {
     console.log(recommendeds);
   }, [recommendeds]);
   return (
-    <div>
+    <div style={ { height: '100%' } }>
       {recipe.length !== 0 && (
         <>
           <img
@@ -88,13 +96,21 @@ export default function DrinkDetails(props) {
             ),
           )}
       </section>
-      <button
-        style={ { position: 'fixed', bottom: 0 } }
-        type="button"
-        data-testid="start-recipe-btn"
-      >
-        Start
-      </button>
+      {show === false && (
+        <button
+          style={ {
+            position: 'fixed',
+            bottom: 0,
+            left: 0,
+          } }
+          type="button"
+          data-testid="start-recipe-btn"
+          onClick={ () => inProgressRecipe() === false
+            && history.push(`${history.location.pathname}/in-progress`) }
+        >
+          {inProgressRecipe() ? 'Continue Recipe' : 'Start Recipe'}
+        </button>
+      )}
     </div>
   );
 }
