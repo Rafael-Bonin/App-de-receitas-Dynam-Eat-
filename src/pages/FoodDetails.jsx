@@ -76,7 +76,7 @@ export default function FoodDetails(props) {
         height="200"
         title="video"
         src={
-          recipe.strYoutube !== undefined
+          recipe.strYoutube
           && recipe.strYoutube.replace('watch?v=', 'embed/')
         }
       />
@@ -85,6 +85,7 @@ export default function FoodDetails(props) {
           && recommendeds.map(
             (receita, index) => index <= FIVE && (
               <div
+                key={ Math.random() }
                 style={ {
                   display: index <= 1 ? 'inline-block' : 'none',
                   width: '160px',
