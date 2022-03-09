@@ -6,16 +6,20 @@ import FetchRandomDrink from '../services/FetchRandomDrink';
 
 export default function ExploreDrinks() {
   const [route, setRoute] = useState(false);
-  const [randomDrink, setRandomDrink] = useState('');
+  const [randomDrink, setRandomDrink] = useState();
 
   const setDrink = async () => {
-    const Foods = await FetchRandomDrink();
-    setRandomDrink(Foods.idDrink);
+    const Drinks = await FetchRandomDrink();
+    setRandomDrink(Drinks.idDrink);
   };
 
   useEffect(() => {
     setDrink();
   }, []);
+
+  useEffect(() => {
+    console.log(randomDrink);
+  }, [randomDrink]);
   return (
     <>
       <Header title="Explore Drinks" sb={ false } />
@@ -32,7 +36,7 @@ export default function ExploreDrinks() {
       >
         Surprise me!
       </button>
-      {route && <Redirect to={ `/drinks/${randomDrink}}` } />}
+      {route && <Redirect to={ `/drinks/${randomDrink}` } />}
       <Footer />
     </>
   );

@@ -6,7 +6,7 @@ import FetchRandomFood from '../services/FetchRandomFood';
 
 export default function ExploreFoods() {
   const [route, setRoute] = useState(false);
-  const [randomFood, setRandomFood] = useState('');
+  const [randomFood, setRandomFood] = useState();
 
   const setFood = async () => {
     const Foods = await FetchRandomFood();
@@ -39,7 +39,7 @@ export default function ExploreFoods() {
       >
         Surprise me!
       </button>
-      {route && <Redirect to={ `/foods/${randomFood}}` } />}
+      {route && <Redirect to={ `/foods/${randomFood}` } />}
       <Footer />
     </div>
   );
