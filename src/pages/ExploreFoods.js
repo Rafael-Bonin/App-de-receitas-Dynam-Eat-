@@ -7,9 +7,14 @@ import FetchRandomFood from '../services/FetchRandomFood';
 export default function ExploreFoods() {
   const [route, setRoute] = useState(false);
   const [randomFood, setRandomFood] = useState('');
-  useEffect(async () => {
+
+  const setFood = async () => {
     const Foods = await FetchRandomFood();
     setRandomFood(Foods.idMeal);
+  };
+
+  useEffect(() => {
+    setFood();
   }, []);
   return (
     <div>

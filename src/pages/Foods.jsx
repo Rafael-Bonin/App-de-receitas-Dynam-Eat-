@@ -16,7 +16,7 @@ function Foods() {
   }, []);
   return (
     <>
-      <Header title="Foods" sb={ 1 } />
+      <Header title="Foods" sb />
       <GetCategories apiName="themealdb" />
       {recipes.length > 1
         && recipes.map(

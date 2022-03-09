@@ -7,9 +7,14 @@ import FetchRandomDrink from '../services/FetchRandomDrink';
 export default function ExploreDrinks() {
   const [route, setRoute] = useState(false);
   const [randomDrink, setRandomDrink] = useState('');
-  useEffect(async () => {
-    const Drinks = await FetchRandomDrink();
-    setRandomDrink(Drinks.idDrink);
+
+  const setDrink = async () => {
+    const Foods = await FetchRandomDrink();
+    setRandomDrink(Foods.idDrink);
+  };
+
+  useEffect(() => {
+    setDrink();
   }, []);
   return (
     <>

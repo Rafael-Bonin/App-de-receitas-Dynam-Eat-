@@ -1,6 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import getIngredients from './getIngredients';
+import blackHeart from '../images/blackHeartIcon.svg';
+import whiteHeart from '../images/whiteHeartIcon.svg';
+
+const copy = require('clipboard-copy');
+
+const addFavorite = (recipe, id) => {
+  const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  if (favoriteRecipes !== null) {
+    const found = favoriteRecipes.some((receita) => receita.id === id);
+    if (found) {
+      const filtered = favoriteRecipes.filter((receit) => receit.id !== id);
+      return localStorage.setItem('favoriteRecipes', JSON.stringify(filtered));
+    }
+    const newRecipe = [...favoriteRecipes, recipe];
+    localStorage.setItem('favoriteRecipes', JSON.stringify(newRecipe));
+  } else {
+    localStorage.setItem('favoriteRecipes', JSON.stringify([recipe]));
+  }
+};
+
+const isFavorite = (param, func) => {
+  const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  if (favoriteRecipes !== null) {
+    console.log(param);
+    const favorite = favoriteRecipes.some((receita) => receita.id === param);
+    if (favorite) return func(blackHeart);
+    return func(whiteHeart);
+  }
+  return func(whiteHeart);
+};
 
 export default function DrinkDetails(props) {
   const { history } = props;
@@ -8,6 +38,8 @@ export default function DrinkDetails(props) {
   const [recommendeds, setRecommendeds] = useState([]);
   const [show, setShow] = useState(false);
   const [ingredients, setIngredients] = useState([]);
+  const [heart, setHeart] = useState('');
+  const [refresh, setRefresh] = useState(false);
   const FIVE = 5;
 
   const id = history.location.pathname.replace(/\D/g, '');
@@ -18,10 +50,12 @@ export default function DrinkDetails(props) {
       return Object.keys(inProgress.cocktails).some(
         (ids) => ids === recipe.idDrink,
       );
-    } return false;
+    }
+    return false;
   };
 
   useEffect(() => {
+    isFavorite(recipe.idDrink, setHeart);
     fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
       .then((response) => response.json())
       .then((data) => setRecipe(data.drinks[0]));
@@ -30,8 +64,13 @@ export default function DrinkDetails(props) {
       .then((data) => setRecommendeds(data.meals));
   }, []);
   useEffect(() => {
+    console.log('mudou');
+    isFavorite(recipe.idDrink, setHeart);
+  }, [refresh]);
+  useEffect(() => {
     console.log(recipe);
     console.log(recommendeds);
+    isFavorite(recipe.idDrink, setHeart);
     const TWENTY = 15;
     const dones = JSON.parse(localStorage.getItem('doneRecipes'));
     if (dones !== null && recipe.length !== 0) {
@@ -55,11 +94,33 @@ export default function DrinkDetails(props) {
             src={ recipe.strDrinkThumb }
           />
           <h2 data-testid="recipe-title">{recipe.strDrink}</h2>
-          <button type="button" data-testid="share-btn">
+          <button
+            onClick={ () => copy(`http://localhost:3000/drinks/${id}`) }
+            type="button"
+            data-testid="share-btn"
+          >
             Share
           </button>
-          <button type="button" data-testid="favorite-btn">
-            Favorite
+          <h3>Link copied!</h3>
+          <button
+            type="button"
+            onClick={ () => {
+              addFavorite(
+                {
+                  id: recipe.idDrink,
+                  type: 'drink',
+                  nationality: '',
+                  category: recipe.strCategory,
+                  alcoholicOrNot: recipe.strAlcoholic,
+                  name: recipe.strDrink,
+                  image: recipe.strDrinkThumb,
+                },
+                recipe.idDrink,
+              );
+              setRefresh(!refresh);
+            } }
+          >
+            <img data-testid="favorite-btn" alt="im" src={ heart } />
           </button>
           <h2 data-testid="recipe-category">{recipe.strAlcoholic}</h2>
         </>

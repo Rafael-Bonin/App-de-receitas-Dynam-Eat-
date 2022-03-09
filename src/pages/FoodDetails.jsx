@@ -1,6 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import getIngredients from './getIngredients';
+import blackHeart from '../images/blackHeartIcon.svg';
+import whiteHeart from '../images/whiteHeartIcon.svg';
+
+const copy = require('clipboard-copy');
+
+const isFavorite = (param, func) => {
+  const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  if (favoriteRecipes !== null) {
+    console.log(param);
+    const favorite = favoriteRecipes.some((receita) => receita.id === param);
+    if (favorite) return func(blackHeart);
+    return func(whiteHeart);
+  }
+  return func(whiteHeart);
+};
+
+const addFavorite = (recipe, id) => {
+  const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  if (favoriteRecipes !== null) {
+    const found = favoriteRecipes.some((receita) => receita.id === id);
+    if (found) {
+      const filtered = favoriteRecipes.filter((receit) => receit.id !== id);
+      return localStorage.setItem('favoriteRecipes', JSON.stringify(filtered));
+    }
+    const newRecipe = [...favoriteRecipes, recipe];
+    localStorage.setItem('favoriteRecipes', JSON.stringify(newRecipe));
+  } else {
+    localStorage.setItem('favoriteRecipes', JSON.stringify([recipe]));
+  }
+};
 
 export default function FoodDetails(props) {
   const { history } = props;
@@ -8,7 +38,10 @@ export default function FoodDetails(props) {
   const [ingredients, setIngredients] = useState([]);
   const [recommendeds, setRecommendeds] = useState([]);
   const [show, setShow] = useState(false);
+  const [refresh, setRefresh] = useState(false);
+  const [heart, setHeart] = useState('');
   const FIVE = 5;
+  const id = history.location.pathname.replace(/\D/g, '');
 
   const inProgressRecipe = () => {
     const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
@@ -19,7 +52,7 @@ export default function FoodDetails(props) {
   };
 
   useEffect(() => {
-    const id = history.location.pathname.replace(/\D/g, '');
+    isFavorite(recipe.idMeal, setHeart);
     fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
       .then((response) => response.json())
       .then((data) => setRecipe(data.meals[0]));
@@ -28,7 +61,12 @@ export default function FoodDetails(props) {
       .then((data) => setRecommendeds(data.drinks));
   }, []);
   useEffect(() => {
+    console.log('mudou');
+    isFavorite(recipe.idMeal, setHeart);
+  }, [refresh]);
+  useEffect(() => {
     console.log(recipe);
+    isFavorite(recipe.idMeal, setHeart);
     const TWELVE = 20;
     const dones = JSON.parse(localStorage.getItem('doneRecipes'));
     if (dones !== null && recipe.length !== 0) {
@@ -50,11 +88,33 @@ export default function FoodDetails(props) {
             src={ recipe.strMealThumb }
           />
           <h2 data-testid="recipe-title">{recipe.strMeal}</h2>
-          <button type="button" data-testid="share-btn">
+          <button
+            onClick={ () => copy(`http://localhost:3000/foods/${id}`) }
+            type="button"
+            data-testid="share-btn"
+          >
             Share
           </button>
-          <button type="button" data-testid="favorite-btn">
-            Favorite
+          <h3>Link copied!</h3>
+          <button
+            onClick={ () => {
+              addFavorite(
+                {
+                  id: recipe.idMeal,
+                  type: 'food',
+                  nationality: recipe.strArea,
+                  category: recipe.strCategory,
+                  alcoholicOrNot: '',
+                  name: recipe.strMeal,
+                  image: recipe.strMealThumb,
+                },
+                recipe.idMeal,
+              );
+              setRefresh(!refresh);
+            } }
+            type="button"
+          >
+            <img data-testid="favorite-btn" alt="im" src={ heart } />
           </button>
           <h2 data-testid="recipe-category">{recipe.strCategory}</h2>
         </>
@@ -76,8 +136,7 @@ export default function FoodDetails(props) {
         height="200"
         title="video"
         src={
-          recipe.strYoutube
-          && recipe.strYoutube.replace('watch?v=', 'embed/')
+          recipe.strYoutube && recipe.strYoutube.replace('watch?v=', 'embed/')
         }
       />
       <section style={ { width: '290%', textAlign: 'center' } }>
