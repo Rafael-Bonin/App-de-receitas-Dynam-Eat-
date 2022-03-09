@@ -1,10 +1,8 @@
 const FetchRandomDrink = async () => {
-  const getDrinks = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+  const getDrinks = await fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php');
   const processDrinks = await getDrinks.json();
-  const drinks = await processDrinks.drinks;
-  const random = Math.floor(Math.random() * (drinks.length - 0) + 0);
-  const randomDrink = await drinks[random];
-  return randomDrink;
+  const drinks = await processDrinks.drinks[0];
+  return drinks;
 };
 
 export default FetchRandomDrink;
