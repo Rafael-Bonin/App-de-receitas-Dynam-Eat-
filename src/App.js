@@ -15,6 +15,8 @@ import FavoriteRecipes from './pages/FavoriteRecipes';
 import recipesContext from './services/recipesContext';
 import FoodDetails from './pages/FoodDetails';
 import DrinkDetails from './pages/DrinkDetails';
+import InProgressFood from './pages/InProgressFood';
+import InProgressDrink from './pages/InProgressDrink';
 
 function App() {
   const [recipes, setRecipes] = useState([]);
@@ -26,6 +28,8 @@ function App() {
         <Route exact path="/foods" component={ Foods } />
         <Route exact path="/foods/:id" component={ FoodDetails } />
         <Route exact path="/drinks/:id" component={ DrinkDetails } />
+        <Route exact path="/foods/:id/in-progress" component={ InProgressFood } />
+        <Route exact path="/drinks/:id/in-progress" component={ InProgressDrink } />
         <Route exact path="/drinks" component={ Drinks } />
         <Route exact path="/profile" component={ Profile } />
         <Route exact path="/explore" component={ Explore } />
