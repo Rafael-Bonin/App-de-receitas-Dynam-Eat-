@@ -21,26 +21,57 @@ import InProgressDrink from './pages/InProgressDrink';
 function App() {
   const [recipes, setRecipes] = useState([]);
   const [filter, setFilter] = useState('');
+  const [chicken, setChicken] = useState(false);
+  const [gin, setGin] = useState(false);
+
   return (
     <Switch>
-      <recipesContext.Provider value={ { recipes, setRecipes, filter, setFilter } }>
+      <recipesContext.Provider
+        value={ {
+          recipes,
+          setRecipes,
+          filter,
+          setFilter,
+          chicken,
+          setChicken,
+          gin,
+          setGin,
+        } }
+      >
         <Route exact path="/" component={ Login } />
         <Route exact path="/foods" component={ Foods } />
         <Route exact path="/foods/:id" component={ FoodDetails } />
         <Route exact path="/drinks/:id" component={ DrinkDetails } />
         <Route exact path="/foods/:id/in-progress" component={ InProgressFood } />
-        <Route exact path="/drinks/:id/in-progress" component={ InProgressDrink } />
+        <Route
+          exact
+          path="/drinks/:id/in-progress"
+          component={ InProgressDrink }
+        />
         <Route exact path="/drinks" component={ Drinks } />
         <Route exact path="/profile" component={ Profile } />
         <Route exact path="/explore" component={ Explore } />
         <Route exact path="/explore/foods" component={ ExploreFoods } />
         <Route exact path="/explore/drinks" component={ ExploreDrinks } />
-        <Route exact path="/explore/foods/ingredients" component={ FoodIngredients } />
-        <Route exact path="/explore/drinks/ingredients" component={ DrinkIngredients } />
+        <Route
+          exact
+          path="/explore/foods/ingredients"
+          component={ FoodIngredients }
+        />
+        <Route
+          exact
+          path="/explore/drinks/ingredients"
+          component={ DrinkIngredients }
+        />
         <Route
           exact
           path="/explore/foods/nationalities"
           component={ NationalitiesFood }
+        />
+        <Route
+          exact
+          path="/explore/drinks/nationalities"
+          component={ () => <h1>Not Found</h1> }
         />
         <Route exact path="/done-recipes" component={ DoneRecipes } />
         <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />

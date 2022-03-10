@@ -5,14 +5,23 @@ import GetCategories from '../components/GetCategories';
 import Header from '../components/Header';
 import recipesContext from '../services/recipesContext';
 
+/* .filter((receita) => {
+  if (mainFilter !== '') {
+    return getIngredients(receita, TWENTY, '', null).includes(mainFilter);
+  }
+  return true;
+}) */
+
 function Foods() {
-  const { recipes, setRecipes } = useContext(recipesContext);
+  const { recipes, setRecipes, chicken } = useContext(recipesContext);
   const TWELVE = 12;
 
   useEffect(() => {
-    fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
-      .then((response) => response.json())
-      .then((data) => setRecipes(data.meals));
+    if (!chicken) {
+      fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
+        .then((response) => response.json())
+        .then((data) => setRecipes(data.meals));
+    }
   }, []);
   return (
     <>
