@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
+import './Login.css';
 import propTypes from 'prop-types';
 
 function Login(props) {
@@ -17,14 +18,16 @@ function Login(props) {
     }
   }, [email, password]);
   return (
-    <>
+    <main className="login">
       <input
+        className="login_user"
         type="text"
         value={ email }
         onChange={ (e) => setEmail(e.target.value) }
         data-testid="email-input"
       />
       <input
+        className="login_password"
         type="password"
         onChange={ (e) => setPassword(e.target.value) }
         value={ password }
@@ -46,7 +49,7 @@ function Login(props) {
       >
         Enter
       </button>
-    </>
+    </main>
   );
 }
 

@@ -1,0 +1,71 @@
+.login {
+  align-items: center;
+  background-position: center;
+  background-image: url('./images/login_bg.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  font-family: Verdana , Geneva , Tahoma , sans-serif;
+  font-size: 12px;
+  font-style: italic;
+  font-weight: 900;
+  height: 100vh;
+  justify-content: center;
+  width: 100vw;
+}
+
+.login label input {
+  align-self: center;
+  border: none;
+  border-radius: 10px;
+  color: black;
+  display: block;
+  font-weight: 900;
+  margin: 5px;
+  max-width: 180px;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+.login .login_user {
+  margin-bottom: 4px;
+}
+
+.login label {
+  line-height: 20px;
+  text-align: center;
+}
+.login button {
+  background-color: white;
+  border: none;
+  border-radius: 8px;
+  color: black;
+  font-weight: 900;
+  margin-top: 5px;
+  padding: 5px 20px;
+}
+
+.login button:disabled {
+  background-color: gray;
+  color: white;
+  display: none;
+}
+
+.login-footer {
+  align-items: center;
+  bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+}
+
+.login-footer a {
+  color: white;
+  font-size: 18px;
+}
+
+.login .teamLogo {
+  width: 48px;
+}
