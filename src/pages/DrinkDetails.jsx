@@ -84,95 +84,108 @@ export default function DrinkDetails(props) {
     console.log(recommendeds);
   }, [recommendeds]);
   return (
-    <div style={ { height: '100%' } }>
+    <main className="details-main-div">
       {recipe.length !== 0 && (
         <>
           <img
             data-testid="recipe-photo"
-            style={ { width: '20%' } }
             alt="imagem"
             src={ recipe.strDrinkThumb }
+            className="details-img"
           />
-          <h2 data-testid="recipe-title">{recipe.strDrink}</h2>
-          <button
-            onClick={ () => copy(`http://localhost:3000/drinks/${id}`) }
-            type="button"
-            data-testid="share-btn"
-          >
-            Share
-          </button>
-          <h3>Link copied!</h3>
-          <button
-            type="button"
-            onClick={ () => {
-              addFavorite(
-                {
-                  id: recipe.idDrink,
-                  type: 'drink',
-                  nationality: '',
-                  category: recipe.strCategory,
-                  alcoholicOrNot: recipe.strAlcoholic,
-                  name: recipe.strDrink,
-                  image: recipe.strDrinkThumb,
-                },
-                recipe.idDrink,
-              );
-              setRefresh(!refresh);
-            } }
-          >
-            <img data-testid="favorite-btn" alt="im" src={ heart } />
-          </button>
-          <h2 data-testid="recipe-category">{recipe.strAlcoholic}</h2>
+          <div className="details-no-img-div">
+            <div className="details-title-div">
+              <h2
+                data-testid="recipe-title"
+                className="details-title"
+              >
+                {recipe.strDrink}
+              </h2>
+              <h2
+                data-testid="recipe-category"
+                className="detail-types"
+              >
+                {recipe.strAlcoholic}
+              </h2>
+            </div>
+          </div>
+          <div className="details-share-fav-div">
+            <button
+              onClick={ () => copy(`http://localhost:3000/drinks/${id}`) }
+              type="button"
+              data-testid="share-btn"
+            >
+              Share
+            </button>
+            <button
+              type="button"
+              onClick={ () => {
+                addFavorite(
+                  {
+                    id: recipe.idDrink,
+                    type: 'drink',
+                    nationality: '',
+                    category: recipe.strCategory,
+                    alcoholicOrNot: recipe.strAlcoholic,
+                    name: recipe.strDrink,
+                    image: recipe.strDrinkThumb,
+                  },
+                  recipe.idDrink,
+                );
+                setRefresh(!refresh);
+              } }
+            >
+              <img data-testid="favorite-btn" alt="img" src={ heart } />
+            </button>
+          </div>
         </>
       )}
-      {ingredients.length > 0
-        && ingredients.map((ingredient, index) => (
-          <p data-testid={ `${index}-ingredient-name-and-measure` } key={ index }>
-            {ingredient.name}
-            ,
-            {ingredient.measure}
+      <div className="details-content">
+        <div className="details-ingredients">
+          {ingredients.length > 0
+            && ingredients.map((ingredient, index) => (
+              <p data-testid={ `${index}-ingredient-name-and-measure` } key={ index }>
+                {ingredient.name}
+                ,
+                {ingredient.measure}
+              </p>
+            ))}
+        </div>
+        <div className="details-instructions">
+          <p data-testid="instructions">
+            {recipe.strInstructions}
           </p>
-        ))}
-      <p style={ { width: '95%' } } data-testid="instructions">
-        {recipe.strInstructions}
-      </p>
-      <section style={ { width: '290%', textAlign: 'center' } }>
-        {recommendeds.length > 0
-          && recommendeds.map(
-            (receita, index) => index <= FIVE && (
-              <div
-                style={ {
-                  display: index <= 1 ? 'inline-block' : 'none',
-                  width: '160px',
-                  height: '100px',
-                  margin: ['10px', '20px'],
-                  float: 'left',
-                } }
-                data-testid={ `${index}-recomendation-card` }
-              >
-                <h3 data-testid={ `${index}-recomendation-title` }>
-                  {receita.strMeal}
-                </h3>
-              </div>
-            ),
-          )}
-      </section>
-      {show === false && (
-        <button
-          style={ {
-            position: 'fixed',
-            bottom: 0,
-            left: 0,
-          } }
-          type="button"
-          data-testid="start-recipe-btn"
-          onClick={ () => inProgressRecipe() === false
-            && history.push(`${history.location.pathname}/in-progress`) }
-        >
-          {inProgressRecipe() ? 'Continue Recipe' : 'Start Recipe'}
-        </button>
-      )}
-    </div>
+        </div>
+        <section>
+          <div className="details-recommended">
+            {recommendeds.length > 0
+              && recommendeds.map(
+                (receita, index) => index <= FIVE && (
+                  <div
+                    data-testid={ `${index}-recomendation-card` }
+                  >
+                    <h3 data-testid={ `${index}-recomendation-title` }>
+                      {receita.strMeal}
+                    </h3>
+                  </div>
+                ),
+              )}
+          </div>
+        </section>
+      </div>
+      <div className="details-start-recipe">
+        {show === false && (
+          <button
+            type="button"
+            data-testid="start-recipe-btn"
+            onClick={ () => inProgressRecipe() === false
+              && history.push(`${history.location.pathname}/in-progress`) }
+          >
+            {inProgressRecipe() ? 'Continue Recipe' : 'Start Recipe'}
+          </button>
+        )}
+      </div>
+    </main>
   );
 }
 

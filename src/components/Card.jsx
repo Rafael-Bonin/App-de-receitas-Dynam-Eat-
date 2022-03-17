@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
+import './Card.css';
 
 export default function Card({ recipe, route }) {
   const { id, name, image, recipeId } = recipe;

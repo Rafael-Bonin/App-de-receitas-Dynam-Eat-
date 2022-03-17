@@ -1,0 +1,35 @@
+.header {
+  background-color: #e2622b;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 5px 10px;
+  z-index: 1;
+}
+
+.profile-container {
+  width: 100%;
+}
+
+.profile-container h3 {
+  font-size: 18px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.profile-content {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.profile-content button {
+  background-color: #0d345c;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-size: 20px;
+  margin: 6px;
+  padding: 8px;
+  width: 200px;
+}

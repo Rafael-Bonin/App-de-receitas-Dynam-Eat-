@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import './Profile.css';
 
 export default function Profile() {
   const [email, setEmail] = useState('');
@@ -16,7 +17,7 @@ export default function Profile() {
   }, []);
 
   return (
-    <>
+    <div className="profile-container">
       <Header title="Profile" sb={ false } />
       <main>
         <h3 data-testid="profile-email">
@@ -26,19 +27,35 @@ export default function Profile() {
             <p>Loading</p>
           )}
         </h3>
-        <Link to="/done-recipes" data-testid="profile-done-btn">Done Recipes</Link>
-        <Link to="/favorite-recipes" data-testid="profile-favorite-btn">
-          Favorite Recipes
-        </Link>
-        <Link
-          onClick={ () => localStorage.clear() }
-          to="/"
-          data-testid="profile-logout-btn"
-        >
-          Logout
-        </Link>
+        <div className="profile-content">
+          <Link to="/done-recipes">
+            <button
+              type="button"
+              data-testid="profile-done-btn"
+            >
+              Receitas Feitas
+            </button>
+          </Link>
+          <Link to="/favorite-recipes">
+            <button
+              type="button"
+              data-testid="profile-favorite-btn"
+            >
+              Favorite Recipes
+            </button>
+          </Link>
+          <Link to="/">
+            <button
+              type="button"
+              data-testid="profile-logout-btn"
+              onClick={ () => localStorage.clear() }
+            >
+              Sair
+            </button>
+          </Link>
+        </div>
       </main>
       <Footer />
-    </>
+    </div>
   );
 }

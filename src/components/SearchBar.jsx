@@ -26,6 +26,7 @@ export default function SearchBar(props) {
           type="text"
           data-testid="search-input"
           value={ searchInput }
+          placeholder="Procurar receitas"
           onChange={ (e) => setSearchInput(e.target.value) }
         />
       </div>
