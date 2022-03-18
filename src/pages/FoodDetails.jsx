@@ -98,7 +98,7 @@ export default function FoodDetails(props) {
                   {recipe.strMeal}
                 </h2>
                 <h2
-                  className="details-type"
+                  className="detail-types"
                   data-testid="recipe-category"
                 >
                   {recipe.strCategory}
@@ -153,6 +153,7 @@ export default function FoodDetails(props) {
             </p>
           </div>
           <iframe
+            className="video"
             data-testid="video"
             width="95%"
             height="200"
@@ -162,6 +163,11 @@ export default function FoodDetails(props) {
             }
           />
           <section>
+            <h2
+              className="title-recipes-recommended"
+            >
+              Receitas recomendadas
+            </h2>
             <div className="details-recommended">
               {recommendeds.length > 0
                 && recommendeds.map(
@@ -170,7 +176,10 @@ export default function FoodDetails(props) {
                       key={ Math.random() }
                       data-testid={ `${index}-recomendation-card` }
                     >
-                      <h3 data-testid={ `${index}-recomendation-title` }>
+                      <h3
+                        className="recomendation-title"
+                        data-testid={ `${index}-recomendation-title` }
+                      >
                         {receita.strDrink}
                       </h3>
                     </div>
@@ -179,7 +188,7 @@ export default function FoodDetails(props) {
             </div>
           </section>
         </div>
-        <div className="details-start-recipe">
+        <div className="details-start-finish-recipe">
           {show === false && (
             <button
               type="button"

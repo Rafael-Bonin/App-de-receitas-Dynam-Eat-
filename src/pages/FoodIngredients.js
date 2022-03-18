@@ -29,30 +29,33 @@ export default function FoodIngredients(props) {
   }, [allIngredients]);
 
   return (
-    <>
+    <main>
       <Header title="Explore Ingredients" sb={ false } />
-      {allIngredients.length > 0
-        && allIngredients.map(
-          (ingredient, index) => index <= ELEVEN && (
-            <button
-              key={ Math.random() }
-              data-testid={ `${index}-ingredient-card` }
-              onClick={ async () => {
-                setChicken(true);
-                await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient.strIngredient}`).then((response) => response.json()).then((data) => setRecipes(data.meals));
-                history.push('/foods');
-              } }
-              type="button"
-            >
-              <h2 data-testid={ `${index}-card-name` }>
-                {ingredient.strIngredient}
-              </h2>
-              <img src={ `https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}-Small.png` } data-testid={ `${index}-card-img` } alt="ingredient" />
-            </button>
-          ),
-        )}
+      <div className="ingredients-cards-list">
+        {allIngredients.length > 0
+          && allIngredients.map(
+            (ingredient, index) => index <= ELEVEN && (
+              <button
+                className="ingredients-cards"
+                key={ Math.random() }
+                data-testid={ `${index}-ingredient-card` }
+                onClick={ async () => {
+                  setChicken(true);
+                  await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient.strIngredient}`).then((response) => response.json()).then((data) => setRecipes(data.meals));
+                  history.push('/foods');
+                } }
+                type="button"
+              >
+                <h2 data-testid={ `${index}-card-name` }>
+                  {ingredient.strIngredient}
+                </h2>
+                <img src={ `https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}-Small.png` } data-testid={ `${index}-card-img` } alt="ingredient" />
+              </button>
+            ),
+          )}
+      </div>
       <Footer />
-    </>
+    </main>
   );
 }
 

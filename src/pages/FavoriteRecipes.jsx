@@ -17,30 +17,34 @@ export default function FavoriteRecipes(props) {
     if (doneRecipes !== null) return setRecipes(doneRecipes);
   }, [refresh]);
   return (
-    <>
+    <main className="fav-done-main">
       <Header title="Favorite Recipes" sb={ false } />
-      <button
-        onClick={ () => setTypeFilter('') }
-        type="button"
-        data-testid="filter-by-all-btn"
-      >
-        All
-      </button>
-      <button
-        onClick={ () => setTypeFilter('food') }
-        type="button"
-        data-testid="filter-by-food-btn"
-      >
-        Food
-      </button>
-      <button
-        onClick={ () => setTypeFilter('drink') }
-        type="button"
-        data-testid="filter-by-drink-btn"
-      >
-        Drink
-      </button>
-      <p>Link copied!</p>
+      <div className="menu-fav-done">
+        <button
+          className="filter-buttons"
+          onClick={ () => setTypeFilter('') }
+          type="button"
+          data-testid="filter-by-all-btn"
+        >
+          All
+        </button>
+        <button
+          className="filter-buttons"
+          onClick={ () => setTypeFilter('food') }
+          type="button"
+          data-testid="filter-by-food-btn"
+        >
+          Food
+        </button>
+        <button
+          className="filter-buttons"
+          onClick={ () => setTypeFilter('drink') }
+          type="button"
+          data-testid="filter-by-drink-btn"
+        >
+          Drink
+        </button>
+      </div>
       {recipes.length > 0
         && recipes
           .filter((receita) => receita.type.includes(typeFilter))
@@ -60,7 +64,7 @@ export default function FavoriteRecipes(props) {
               setRefresh={ setRefresh }
             />
           ))}
-    </>
+    </main>
   );
 }
 

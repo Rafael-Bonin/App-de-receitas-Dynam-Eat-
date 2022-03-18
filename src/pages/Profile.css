@@ -23,8 +23,9 @@
   width: 100%;
 }
 
-.profile-content button {
+.profile-content-button {
   background-color: #0d345c;
+  box-shadow: 2px 2px 4px 1px rgb(177, 177, 177);
   border: none;
   border-radius: 6px;
   color: white;
@@ -32,4 +33,11 @@
   margin: 6px;
   padding: 8px;
   width: 200px;
+}
+
+.profile-content-button:hover {
+  background-color: white;
+  color: #e2622b;
+  font-weight: 900;
+  transition: 0.3s ease-in;
 }

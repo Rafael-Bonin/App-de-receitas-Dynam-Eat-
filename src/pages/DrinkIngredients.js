@@ -31,30 +31,33 @@ export default function DrinkIngredients(props) {
     console.log(ready);
   }, [allIngredients]);
   return (
-    <div>
+    <main>
       <Header title="Explore Ingredients" sb={ false } />
-      {allIngredients.length > 0
-        && allIngredients.map(
-          (ingredient, index) => index <= ELEVEN && (
-            <button
-              type="button"
-              onClick={ async () => {
-                setGin(true);
-                await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient.strIngredient1}`).then((response) => response.json()).then((data) => setRecipes(data.drinks));
-                history.push('/drinks');
-              } }
-              key={ Math.random() }
-              data-testid={ `${index}-ingredient-card` }
-            >
-              <h2 data-testid={ `${index}-card-name` }>
-                {ingredient.strIngredient1}
-              </h2>
-              <img src={ `https://www.thecocktaildb.com/images/ingredients/${ingredient.strIngredient1}-Small.png` } data-testid={ `${index}-card-img` } alt="ingredient" />
-            </button>
-          ),
-        )}
+      <div className="ingredients-cards-list">
+        {allIngredients.length > 0
+          && allIngredients.map(
+            (ingredient, index) => index <= ELEVEN && (
+              <button
+                className="ingredients-cards"
+                type="button"
+                onClick={ async () => {
+                  setGin(true);
+                  await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient.strIngredient1}`).then((response) => response.json()).then((data) => setRecipes(data.drinks));
+                  history.push('/drinks');
+                } }
+                key={ Math.random() }
+                data-testid={ `${index}-ingredient-card` }
+              >
+                <h2 data-testid={ `${index}-card-name` }>
+                  {ingredient.strIngredient1}
+                </h2>
+                <img src={ `https://www.thecocktaildb.com/images/ingredients/${ingredient.strIngredient1}-Small.png` } data-testid={ `${index}-card-img` } alt="ingredient" />
+              </button>
+            ),
+          )}
+      </div>
       <Footer />
-    </div>
+    </main>
   );
 }
 

@@ -30,6 +30,7 @@ export default function Profile() {
         <div className="profile-content">
           <Link to="/done-recipes">
             <button
+              className="profile-content-button"
               type="button"
               data-testid="profile-done-btn"
             >
@@ -38,6 +39,7 @@ export default function Profile() {
           </Link>
           <Link to="/favorite-recipes">
             <button
+              className="profile-content-button"
               type="button"
               data-testid="profile-favorite-btn"
             >
@@ -46,6 +48,7 @@ export default function Profile() {
           </Link>
           <Link to="/">
             <button
+              className="profile-content-button"
               type="button"
               data-testid="profile-logout-btn"
               onClick={ () => localStorage.clear() }

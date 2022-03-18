@@ -157,6 +157,11 @@ export default function DrinkDetails(props) {
           </p>
         </div>
         <section>
+          <h2
+            className="title-recipes-recommended"
+          >
+            Receitas recomendadas
+          </h2>
           <div className="details-recommended">
             {recommendeds.length > 0
               && recommendeds.map(
@@ -164,7 +169,10 @@ export default function DrinkDetails(props) {
                   <div
                     data-testid={ `${index}-recomendation-card` }
                   >
-                    <h3 data-testid={ `${index}-recomendation-title` }>
+                    <h3
+                      className="recomendation-title"
+                      data-testid={ `${index}-recomendation-title` }
+                    >
                       {receita.strMeal}
                     </h3>
                   </div>
@@ -173,7 +181,7 @@ export default function DrinkDetails(props) {
           </div>
         </section>
       </div>
-      <div className="details-start-recipe">
+      <div className="details-start-finish-recipe">
         {show === false && (
           <button
             type="button"

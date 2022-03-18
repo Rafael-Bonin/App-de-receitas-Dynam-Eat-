@@ -3,7 +3,7 @@
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   margin-bottom: 10px;
 }
 
@@ -15,11 +15,4 @@
   font-weight: 600;
   margin: 0 2px 5px;
   padding: 5px 0px;
-}
-
-.button-categories:hover {
-  background-color: white;
-  color: black;
-  font-weight: 500;
-  transition: 0.3s ease-in;
 }

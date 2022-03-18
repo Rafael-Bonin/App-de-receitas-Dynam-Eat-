@@ -50,6 +50,7 @@
 
 .searchBar-btn {
   background-color: #0d345c;
+  box-shadow: 2px 2px 4px 1px rgb(177, 177, 177);
   border: none;
   border-radius: 10px;
   color: white;
@@ -62,7 +63,7 @@
 
 .searchBar-btn:hover {
   background-color: white;
-  color: black;
+  color: #e2622b;
   font-weight: 900;
   transition: 0.3s ease-in;
 }
