@@ -1,0 +1,87 @@
+.header {
+  align-items: center;
+  background-color: #e2622b;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 5px 10px;
+  z-index: 1;
+}
+
+.header .itens-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 10px;
+  width: 100%;
+}
+
+.header h2 {
+  font-size: 25px;
+}
+
+.search-btn {
+  background: none;
+  border: none;
+}
+
+.searchBar-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px;
+  z-index: 0;
+}
+
+.searchBar {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0px;
+  width: 100%;
+}
+
+.searchBar > input {
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  padding: 8px;
+  text-align:center;
+  width: 100%;
+}
+
+.searchBar-btn {
+  background-color: #0d345c;
+  box-shadow: 2px 2px 4px 1px rgb(177, 177, 177);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  margin: 4px auto;
+  padding: 5px 10px;
+  width: 40%;
+}
+
+.searchBar-btn:hover {
+  background-color: white;
+  color: #e2622b;
+  font-weight: 900;
+  transition: 0.3s ease-in;
+}
+
+.searchBar-radios {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+}
+
+.searchBar-radios li {
+  align-items: center;
+  border-radius: 5px;
+  display: flex;
+  font-family: sans-serif;
+  font-size: 15px;
+  gap: 5px;
+  margin: 5px;
+  text-align: center;
+  text-transform: capitalize;
+}

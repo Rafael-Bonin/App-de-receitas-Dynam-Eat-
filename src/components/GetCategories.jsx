@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import propTypes from 'prop-types';
 import recipesContext from '../services/recipesContext';
+import './GetCategories.css';
 
 export default function GetCategories(props) {
   const { apiName } = props;
@@ -26,11 +27,12 @@ export default function GetCategories(props) {
     console.log(recipes);
   }, [recipes]);
   return (
-    <>
+    <div className="menu-categories">
       {categories.length > 0
         && categories.map(
           (category, index) => index < FIVE && (
             <button
+              className="button-categories"
               onClick={ () => {
                 if (category.strCategory === 'Goat') {
                   fetch(
@@ -60,13 +62,14 @@ export default function GetCategories(props) {
           ),
         )}
       <button
+        className="button-categories"
         type="button"
         data-testid="All-category-filter"
         onClick={ () => getAll() }
       >
         All
       </button>
-    </>
+    </div>
   );
 }
 

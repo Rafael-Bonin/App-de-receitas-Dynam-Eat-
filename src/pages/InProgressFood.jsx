@@ -122,77 +122,102 @@ export default function InProgressFood(props) {
     isFinished();
   }, [ingredients]);
   return (
-    <div>
+    <main className="details-main-div">
       {recipe.length !== 0 && (
         <section key={ Math.random() }>
           <img
-            style={ { width: '30%' } }
             data-testid="recipe-photo"
             alt="im"
             src={ recipe.strMealThumb }
+            className="details-img"
           />
-          <h2 data-testid="recipe-title">{recipe.strMeal}</h2>
-          <button
-            onClick={ () => copy(`http://localhost:3000/foods/${id}`) }
-            type="button"
-            data-testid="share-btn"
-          >
-            Share
-          </button>
-          <h3>Link copied!</h3>
-          <button
-            onClick={ () => {
-              addFavorite(
-                {
-                  id: recipe.idMeal,
-                  type: 'food',
-                  nationality: recipe.strArea,
-                  category: recipe.strCategory,
-                  alcoholicOrNot: '',
-                  name: recipe.strMeal,
-                  image: recipe.strMealThumb,
-                },
-                recipe.idMeal,
-              );
-              setRefresh(!refresh);
-            } }
-            type="button"
-          >
-            <img data-testid="favorite-btn" alt="im" src={ heart } />
-          </button>
-          <h3 data-testid="recipe-category">{recipe.strCategory}</h3>
-          {ingredients.length > 0
-            && ingredients
-              .filter((ingre) => ingre.name !== null)
-              .map((ingredient, index) => (
-                <section data-testid={ `${index}-ingredient-step` } key={ index }>
-                  <p>
-                    {ingredient.name}
-                    {ingredient.measure}
-                  </p>
-                  <input
-                    checked={ isChecked(ingredient.name) }
-                    onClick={ () => {
-                      onCheck(ingredient.name, recipe.idMeal);
-                      isFinished();
-                    } }
-                    type="checkbox"
-                  />
-                </section>
-              ))}
-          <p data-testid="instructions">{recipe.strInstructions}</p>
-          <button
-            disabled={ allChecked }
-            onClick={ () => history.push('/done-recipes') }
-            type="button"
-            data-testid="finish-recipe-btn"
-          >
-            Finish
-          </button>
-          )
+          <div className="details-no-img-div">
+            <div className="details-title-div">
+              <h2
+                data-testid="recipe-title"
+                className="details-title"
+              >
+                {recipe.strMeal}
+              </h2>
+              <h2
+                data-testid="recipe-category"
+                className="detail-types"
+              >
+                {recipe.strCategory}
+              </h2>
+            </div>
+          </div>
+          <div className="details-share-fav-div">
+            <button
+              onClick={ () => copy(`http://localhost:3000/foods/${id}`) }
+              type="button"
+              data-testid="share-btn"
+            >
+              Share
+            </button>
+            <button
+              onClick={ () => {
+                addFavorite(
+                  {
+                    id: recipe.idMeal,
+                    type: 'food',
+                    nationality: recipe.strArea,
+                    category: recipe.strCategory,
+                    alcoholicOrNot: '',
+                    name: recipe.strMeal,
+                    image: recipe.strMealThumb,
+                  },
+                  recipe.idMeal,
+                );
+                setRefresh(!refresh);
+              } }
+              type="button"
+            >
+              <img data-testid="favorite-btn" alt="im" src={ heart } />
+            </button>
+          </div>
+          <div className="details-content">
+            <div className="details-ingredients">
+              {ingredients.length > 0
+                && ingredients
+                  .filter((ingre) => ingre.name !== null)
+                  .map((ingredient, index) => (
+                    <section data-testid={ `${index}-ingredient-step` } key={ index }>
+                      <p>
+                        {ingredient.name}
+                        {ingredient.measure}
+                      </p>
+                      <input
+                        checked={ isChecked(ingredient.name) }
+                        onClick={ () => {
+                          onCheck(ingredient.name, recipe.idMeal);
+                          isFinished();
+                        } }
+                        type="checkbox"
+                      />
+                    </section>
+                  ))}
+            </div>
+          </div>
+          <div className="details-instructions">
+            <p data-testid="instructions">
+              {recipe.strInstructions}
+            </p>
+          </div>
+          <div className="details-start-finish-recipe">
+            <button
+              disabled={ allChecked }
+              onClick={ () => history.push('/done-recipes') }
+              type="button"
+              data-testid="finish-recipe-btn"
+            >
+              Finish
+            </button>
+            )
+          </div>
         </section>
       )}
-    </div>
+    </main>
   );
 }
 

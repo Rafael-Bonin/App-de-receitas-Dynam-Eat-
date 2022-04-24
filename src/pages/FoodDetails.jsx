@@ -3,6 +3,7 @@ import propTypes from 'prop-types';
 import getIngredients from './getIngredients';
 import blackHeart from '../images/blackHeartIcon.svg';
 import whiteHeart from '../images/whiteHeartIcon.svg';
+import './DetailsStyle.css';
 
 const copy = require('clipboard-copy');
 
@@ -78,105 +79,129 @@ export default function FoodDetails(props) {
     console.log(ingredients);
   }, [ingredients]);
   return (
-    <div>
-      {recipe.length !== 0 && (
-        <>
-          <img
-            data-testid="recipe-photo"
-            style={ { width: '20%' } }
-            alt="imagem"
-            src={ recipe.strMealThumb }
-          />
-          <h2 data-testid="recipe-title">{recipe.strMeal}</h2>
-          <button
-            onClick={ () => copy(`http://localhost:3000/foods/${id}`) }
-            type="button"
-            data-testid="share-btn"
-          >
-            Share
-          </button>
-          <h3>Link copied!</h3>
-          <button
-            onClick={ () => {
-              addFavorite(
-                {
-                  id: recipe.idMeal,
-                  type: 'food',
-                  nationality: recipe.strArea,
-                  category: recipe.strCategory,
-                  alcoholicOrNot: '',
-                  name: recipe.strMeal,
-                  image: recipe.strMealThumb,
-                },
-                recipe.idMeal,
-              );
-              setRefresh(!refresh);
-            } }
-            type="button"
-          >
-            <img data-testid="favorite-btn" alt="im" src={ heart } />
-          </button>
-          <h2 data-testid="recipe-category">{recipe.strCategory}</h2>
-        </>
-      )}
-      {ingredients.length > 0
-        && ingredients.map((ingredient, index) => (
-          <p data-testid={ `${index}-ingredient-name-and-measure` } key={ index }>
-            {ingredient.name}
-            ,
-            {ingredient.measure}
-          </p>
-        ))}
-      <p style={ { width: '95%' } } data-testid="instructions">
-        {recipe.strInstructions}
-      </p>
-      <iframe
-        data-testid="video"
-        width="95%"
-        height="200"
-        title="video"
-        src={
-          recipe.strYoutube && recipe.strYoutube.replace('watch?v=', 'embed/')
-        }
-      />
-      <section style={ { width: '290%', textAlign: 'center' } }>
-        {recommendeds.length > 0
-          && recommendeds.map(
-            (receita, index) => index <= FIVE && (
-              <div
-                key={ Math.random() }
-                style={ {
-                  display: index <= 1 ? 'inline-block' : 'none',
-                  width: '160px',
-                  height: '100px',
-                  margin: ['10px', '20px'],
-                  float: 'left',
-                } }
-                data-testid={ `${index}-recomendation-card` }
-              >
-                <h3 data-testid={ `${index}-recomendation-title` }>
-                  {receita.strDrink}
-                </h3>
+    <main className="details-main-div">
+      <div>
+        {recipe.length !== 0 && (
+          <>
+            <img
+              data-testid="recipe-photo"
+              alt="imagem"
+              src={ recipe.strMealThumb }
+              className="details-img"
+            />
+            <div className="details-no-img-div">
+              <div className="details-title-div">
+                <h2
+                  data-testid="recipe-title"
+                  className="details-title"
+                >
+                  {recipe.strMeal}
+                </h2>
+                <h2
+                  className="detail-types"
+                  data-testid="recipe-category"
+                >
+                  {recipe.strCategory}
+                </h2>
               </div>
-            ),
+            </div>
+            <div className="details-share-fav-div">
+              <button
+                onClick={ () => copy(`http://localhost:3000/foods/${id}`) }
+                type="button"
+                data-testid="share-btn"
+              >
+                Share
+              </button>
+              <button
+                type="button"
+                onClick={ () => {
+                  addFavorite(
+                    {
+                      id: recipe.idMeal,
+                      type: 'food',
+                      nationality: recipe.strArea,
+                      category: recipe.strCategory,
+                      alcoholicOrNot: '',
+                      name: recipe.strMeal,
+                      image: recipe.strMealThumb,
+                    },
+                    recipe.idMeal,
+                  );
+                  setRefresh(!refresh);
+                } }
+              >
+                <img data-testid="favorite-btn" alt="img" src={ heart } />
+              </button>
+            </div>
+          </>
+        )}
+        <div className="details-content">
+          <div className="details-ingredients">
+            {ingredients.length > 0
+              && ingredients.map((ingredient, index) => (
+                <p data-testid={ `${index}-ingredient-name-and-measure` } key={ index }>
+                  {ingredient.name}
+                  ,
+                  {ingredient.measure}
+                </p>
+              ))}
+          </div>
+          <div className="details-instructions">
+            <p data-testid="instructions">
+              {recipe.strInstructions}
+            </p>
+          </div>
+          <iframe
+            className="video"
+            data-testid="video"
+            width="95%"
+            height="200"
+            title="video"
+            src={
+              recipe.strYoutube && recipe.strYoutube.replace('watch?v=', 'embed/')
+            }
+          />
+          <section>
+            <h2
+              className="title-recipes-recommended"
+            >
+              Receitas recomendadas
+            </h2>
+            <div className="details-recommended">
+              {recommendeds.length > 0
+                && recommendeds.map(
+                  (receita, index) => index <= FIVE && (
+                    <div
+                      key={ Math.random() }
+                      data-testid={ `${index}-recomendation-card` }
+                    >
+                      <h3
+                        className="recomendation-title"
+                        data-testid={ `${index}-recomendation-title` }
+                      >
+                        {receita.strDrink}
+                      </h3>
+                    </div>
+                  ),
+                )}
+            </div>
+          </section>
+        </div>
+        <div className="details-start-finish-recipe">
+          {show === false && (
+            <button
+              type="button"
+              data-testid="start-recipe-btn"
+              onClick={ () => inProgressRecipe() === false
+                && history.push(`${history.location.pathname}/in-progress`) }
+            >
+              {inProgressRecipe() ? 'Continue Recipe' : 'Start Recipe'}
+            </button>
           )}
-      </section>
-      {show === false && (
-        <button
-          style={ {
-            position: 'fixed',
-            bottom: 0,
-            left: 0,
-          } }
-          type="button"
-          data-testid="start-recipe-btn"
-          onClick={ () => inProgressRecipe() === false
-            && history.push(`${history.location.pathname}/in-progress`) }
-        >
-          {inProgressRecipe() ? 'Continue Recipe' : 'Start Recipe'}
-        </button>
-      )}
-    </div>
+        </div>
+      </div>
+    </main>
   );
 }
 

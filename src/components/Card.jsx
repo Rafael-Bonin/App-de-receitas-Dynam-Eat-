@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
+import './Cards.css';
 
 export default function Card({ recipe, route }) {
   const { id, name, image, recipeId } = recipe;
@@ -12,12 +13,12 @@ export default function Card({ recipe, route }) {
   }, [recipe]);
   return (
     <button
+      className="cards-container"
       type="button"
       onClick={ () => setRota(true) }
       data-testid={ `${id}-recipe-card` }
     >
       <img
-        style={ { width: '20%' } }
         alt="imagem da receita"
         src={ image }
         data-testid={ `${id}-card-img` }

@@ -1,0 +1,73 @@
+.explore-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 30px auto;
+}
+
+.explore-buttons-div {
+  background-color: #0d345c;
+  border: none;
+  box-shadow: 2px 2px 4px 1px rgb(177, 177, 177);
+  border-radius: 6px;
+  margin: 6px;
+  padding: 8px;
+  width: 200px;
+  text-decoration: none;
+  color: white;
+  font-size: 20px;
+}
+
+.explore-buttons-div a {
+  text-decoration: none;
+  color: white;
+  font-size: 20px;
+}
+
+.dropdown-nationality {
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dropdown-item {
+  padding: 6px;
+  border-radius: 6px;
+  color: white;
+  background-color: #0d345c;
+  box-shadow: 2px 2px 4px 1px rgb(177, 177, 177);
+}
+
+.ingredients-cards-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.ingredients-cards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #0d345c;
+  box-shadow: 2px 2px 4px 1px rgb(177, 177, 177);
+  color: white;
+  border-radius: 8px;
+  border: none;
+  margin: 5px;
+  padding: 8px 8px 5px;
+  flex-wrap: wrap;
+  width: 40%;
+  height: 160px;
+}
+
+.ingredients-cards h2{
+  display: flex;
+  flex-wrap: wrap;
+}

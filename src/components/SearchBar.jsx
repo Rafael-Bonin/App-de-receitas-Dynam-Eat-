@@ -20,28 +20,42 @@ export default function SearchBar(props) {
     console.log(recipes);
   }, [recipes]);
   return (
-    <div>
-      <input
-        type="text"
-        data-testid="search-input"
-        value={ searchInput }
-        onChange={ (e) => setSearchInput(e.target.value) }
-      />
-      <input
-        onClick={ () => setRadio('ingredient') }
-        type="radio"
-        data-testid="ingredient-search-radio"
-      />
-      <input
-        onClick={ () => setRadio('name') }
-        type="radio"
-        data-testid="name-search-radio"
-      />
-      <input
-        onClick={ () => setRadio('first_letter') }
-        type="radio"
-        data-testid="first-letter-search-radio"
-      />
+    <div className="searchBar-div">
+      <div className="searchBar">
+        <input
+          type="text"
+          data-testid="search-input"
+          value={ searchInput }
+          placeholder="Search Recipes"
+          onChange={ (e) => setSearchInput(e.target.value) }
+        />
+      </div>
+      <ul className="searchBar-radios">
+        <li>
+          Nome
+          <input
+            onClick={ () => setRadio('ingredient') }
+            type="radio"
+            data-testid="ingredient-search-radio"
+          />
+        </li>
+        <li>
+          Ingrediente
+          <input
+            onClick={ () => setRadio('name') }
+            type="radio"
+            data-testid="name-search-radio"
+          />
+        </li>
+        <li>
+          Primeira letra
+          <input
+            onClick={ () => setRadio('first_letter') }
+            type="radio"
+            data-testid="first-letter-search-radio"
+          />
+        </li>
+      </ul>
       <button
         onClick={ () => {
           const apiName = title === 'Foods' ? 'themealdb' : 'thecocktaildb';
@@ -77,6 +91,7 @@ export default function SearchBar(props) {
           }
         } }
         type="button"
+        className="searchBar-btn"
         data-testid="exec-search-btn"
       >
         Search

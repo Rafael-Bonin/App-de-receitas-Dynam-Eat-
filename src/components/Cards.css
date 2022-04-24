@@ -1,0 +1,75 @@
+.cards-container {
+  background-color: #0d345c;
+  box-shadow: 2px 2px 4px 1px rgb(177, 177, 177);
+  border-radius: 8px;
+  border: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  flex-flow: row;
+  margin: 10px;
+  width: 95%;
+}
+
+.cards-container img {
+  border-radius: 8px;
+  width: 30%;
+  margin-right: 10px;
+}
+
+.menu-fav-done {
+  background-color: #e2622b;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border: none;
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 15px;
+}
+
+.share-fav-div {
+  margin: 0 18px;
+}
+
+.filter-buttons {
+  background-color: transparent;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  margin: 0 2px 5px;
+  padding: 5px 0px;
+}
+
+.cards-done-fav-body {
+  align-items: center;
+  background-color: #0d345c;
+  box-shadow: 2px 2px 4px 1px rgb(177, 177, 177);
+  border-radius: 8px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+  width: 95%;
+}
+
+.details-food-drink {
+  display: flex;
+  justify-content: left;
+}
+
+.cards-done-fav-body img{
+  border-radius: 8px;
+  width: 40%;
+  margin-right: 10px;
+}
+
+.buttons-card-fav-done {
+  display: flex;
+  margin: 10px 0;
+}
+
+.buttons-card-fav-done img {
+  width: 30px;
+  margin: 3px;
+}

@@ -24,33 +24,36 @@ export default function NationalitiesFood() {
   return (
     <>
       <Header title="Explore Nationalities" sb />
-      <select
-        value={ nation2 }
-        data-testid="explore-by-nationality-dropdown"
-        onChange={ async (e) => {
-          setNation(e.target.value);
-          if (e.target.value !== 'All') {
-            await fetch(
-              `https://www.themealdb.com/api/json/v1/1/filter.php?a=${e.target.value}`,
-            )
-              .then((response) => response.json())
-              .then((data) => setRecipes(data.meals));
-            setRefresh(!refresh);
-          } else {
-            await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
-              .then((response) => response.json())
-              .then((data) => setRecipes(data.meals));
-            setRefresh(!refresh);
-          }
-        } }
-      >
-        <option data-testid="All-option">All</option>
-        {nationalities.map((nation) => (
-          <option data-testid={ `${nation.strArea}-option` } key={ Math.random() }>
-            {nation.strArea}
-          </option>
-        ))}
-      </select>
+      <div className="dropdown-nationality">
+        <select
+          className="dropdown-item"
+          value={ nation2 }
+          data-testid="explore-by-nationality-dropdown"
+          onChange={ async (e) => {
+            setNation(e.target.value);
+            if (e.target.value !== 'All') {
+              await fetch(
+                `https://www.themealdb.com/api/json/v1/1/filter.php?a=${e.target.value}`,
+              )
+                .then((response) => response.json())
+                .then((data) => setRecipes(data.meals));
+              setRefresh(!refresh);
+            } else {
+              await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
+                .then((response) => response.json())
+                .then((data) => setRecipes(data.meals));
+              setRefresh(!refresh);
+            }
+          } }
+        >
+          <option data-testid="All-option">All</option>
+          {nationalities.map((nation) => (
+            <option data-testid={ `${nation.strArea}-option` } key={ Math.random() }>
+              {nation.strArea}
+            </option>
+          ))}
+        </select>
+      </div>
       {recipes.length > 1
         && recipes.map(
           (recipe, index) => index < TWELVE && (
