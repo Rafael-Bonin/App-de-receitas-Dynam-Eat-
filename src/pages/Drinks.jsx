@@ -6,13 +6,15 @@ import Card from '../components/Card';
 import GetCategories from '../components/GetCategories';
 
 function Drinks() {
-  const { recipes, setRecipes } = useContext(recipesContext);
+  const { recipes, setRecipes, gin } = useContext(recipesContext);
   const TWELVE = 12;
 
   useEffect(() => {
-    fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
-      .then((response) => response.json())
-      .then((data) => setRecipes(data.drinks));
+    if (!gin) {
+      fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
+        .then((response) => response.json())
+        .then((data) => setRecipes(data.drinks));
+    }
   }, []);
   return (
     <div>
